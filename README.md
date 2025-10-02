@@ -178,7 +178,7 @@ The analysis was guided by four research questions:
 
 - **Interpretation**: Non-linear models (RF, CatBoost) better capture complex relationships between triage, disposition, acuity, and main problem.
 
-- SHAP Analysis (Random Forest):
+### SHAP Analysis (Random Forest):
 
     - Most important predictors: visit disposition and triage level
 
@@ -188,7 +188,7 @@ The analysis was guided by four research questions:
 
     - Certain clinical problems (e.g., pneumonia, motor vehicle collisions) have modest effects
 
-- Survival Analysis (CoxPH):
+### Survival Analysis (CoxPH):
 
     - Sex is the only independent predictor of LOS (males slightly shorter, HR = 1.12, p < 0.005)
 
@@ -196,7 +196,7 @@ The analysis was guided by four research questions:
 
     - Age and fiscal year trends exist but require stratification due to proportional hazards assumption violations
 
-- Integrated Insight:
+### Integrated Insight:
 
     - Survival analysis identifies statistically significant independent predictors (sex).
 
