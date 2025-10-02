@@ -4,7 +4,7 @@
 
 This project analyzes emergency department (ED) utilization and length of stay (LOS) across Canada using national NACRS data from 2003–2022. It combines descriptive analyses, predictive modeling, and interpretability techniques to identify which patient and visit factors influence LOS. Machine learning models, including Random Forest and CatBoost, were used to predict LOS, with SHAP values applied to interpret feature contributions. In addition, a Cox proportional hazards (CoxPH) survival model was fitted to provide statistical inference on time-to-discharge, offering a complementary perspective to the machine learning findings.
 
-🎯 ## **Objectives**
+## 🎯 Objectives
 - To examine trends in ED utilization across age, sex, and presenting problems.
 
 - To identify factors influencing ED length of stay.
@@ -13,7 +13,7 @@ This project analyzes emergency department (ED) utilization and length of stay (
 
 - To complement predictive insights with statistical inference using survival analysis.
 
-🛢️ ## **Data**
+## 🛢️ Data
 
 - Source: [CIHI – NACRS Emergency Department Visits and Lengths of Stay](https://www.cihi.ca/en/nacrs-emergency-department-visits-and-lengths-of-stay) 
 - Coverage: Fiscal years 2003–2004 to 2021–2022, all provinces.
@@ -32,7 +32,7 @@ This project analyzes emergency department (ED) utilization and length of stay (
     - Visit disposition
     - Median length of stay (LOS, minutes)
 
-📊 **Exploratory Data Analysis (EDA)**
+## 📊 Exploratory Data Analysis (EDA)
 
 Key findings from descriptive analysis:
 
@@ -90,7 +90,7 @@ Key findings from descriptive analysis:
 
 - Both triage acuity and disposition strongly influence LOS.
 
-Methodology
+## 🧩 Methodology
 
 The analysis was guided by four research questions:
 
