@@ -207,3 +207,25 @@ The analysis was guided by four research questions:
  - SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
 
 Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
+
+🛠️ Tools & Technologies
+
+- Programming Language: Python 3.x
+
+- Data Manipulation & Analysis: Pandas, NumPy
+
+- Visualization: Matplotlib, Seaborn, Plotly
+
+- Machine Learning & Modeling: Scikit-learn, CatBoost
+
+- Model Interpretability: SHAP
+
+- Survival Analysis: Lifelines (Cox Proportional Hazards)
+
+- Development Environment: Jupyter Notebook
+
+- Version Control & Repository: Git & GitHub
+
+## 📁 Repository Organization
+## 📚 Reference
+Canadian Institute for Health Information. NACRS emergency department visits and lengths of stay. Accessed October 2, 2025. Link
