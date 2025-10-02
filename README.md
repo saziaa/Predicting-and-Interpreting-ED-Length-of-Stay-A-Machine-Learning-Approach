@@ -24,17 +24,10 @@ This project analyzes emergency department (ED) utilization and length of stay (
     - Main Problem – top presenting problems (e.g., trauma, pneumonia, acute myocardial infarction) with frequency and median LOS.
     - Age & Sex – visit counts and LOS distributions by age group and sex, useful for demographic analysis.
 - Key Variables Used:
+        - Age group
+        - Sex
+        - Triage level
+        - Main presenting problem
+        - Visit disposition
+        - Median length of stay (LOS, minutes)
 
-Age group
-
-Sex
-
-Triage level
-
-Main presenting problem
-
-Visit disposition
-
-High-acuity flag
-
-Median length of stay (LOS, minutes)
