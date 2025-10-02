@@ -180,30 +180,30 @@ The analysis was guided by four research questions:
 
 ### SHAP Analysis (Random Forest):
 
-    - Most important predictors: visit disposition and triage level
+- Most important predictors: visit disposition and triage level
 
-    - Patients discharged home or left without being seen have shorter LOS
+- Patients discharged home or left without being seen have shorter LOS
 
-    - Transfers and high-acuity triage increase LOS
+- Transfers and high-acuity triage increase LOS
 
-    - Certain clinical problems (e.g., pneumonia, motor vehicle collisions) have modest effects
+- Certain clinical problems (e.g., pneumonia, motor vehicle collisions) have modest effects
 
 ### Survival Analysis (CoxPH):
 
-    - Sex is the only independent predictor of LOS (males slightly shorter, HR = 1.12, p < 0.005)
+- Sex is the only independent predictor of LOS (males slightly shorter, HR = 1.12, p < 0.005)
 
-    - Main problems have minimal independent effect (HR ≈ 1)
+- Main problems have minimal independent effect (HR ≈ 1)
 
-    - Age and fiscal year trends exist but require stratification due to proportional hazards assumption violations
+- Age and fiscal year trends exist but require stratification due to proportional hazards assumption violations
 
 ### Integrated Insight:
 
-    - Survival analysis identifies statistically significant independent predictors (sex).
+- Survival analysis identifies statistically significant independent predictors (sex).
 
-    - SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
+- SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
 
-    - Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
+- Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
 
-    - SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
+ - SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
 
 Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
