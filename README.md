@@ -1,6 +1,6 @@
 # Predicting and Interpreting ED Length of Stay: A Machine Learning Approach
 
-📌  ## **Project Overview**
+## 📌 Project Overview
 
 This project analyzes emergency department (ED) utilization and length of stay (LOS) across Canada using national NACRS data from 2003–2022. It combines descriptive analyses, predictive modeling, and interpretability techniques to identify which patient and visit factors influence LOS. Machine learning models, including Random Forest and CatBoost, were used to predict LOS, with SHAP values applied to interpret feature contributions. In addition, a Cox proportional hazards (CoxPH) survival model was fitted to provide statistical inference on time-to-discharge, offering a complementary perspective to the machine learning findings.
 
