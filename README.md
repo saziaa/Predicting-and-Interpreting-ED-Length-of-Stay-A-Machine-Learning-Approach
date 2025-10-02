@@ -94,30 +94,116 @@ Key findings from descriptive analysis:
 
 The analysis was guided by four research questions:
 
-Q1: Age- and Sex-Stratified ED Utilization
+### Q1: Age- and Sex-Stratified ED Utilization
 
-Approach: Exploratory Data Analysis (EDA) of the Age & Sex and Main Problem tables.
+- Approach: Exploratory Data Analysis (EDA) of the Age & Sex and Main Problem tables.
 
-Method: Population pyramids and cross-tabulations to identify utilization patterns across demographic groups.
+- Method: Population pyramids and cross-tabulations to identify utilization patterns across demographic groups.
 
-Q2: Triage Level and LOS Patterns by Age and Sex
+### Q2: Triage Level and LOS Patterns by Age and Sex
 
-Approach: Stratified analysis using the Triage Level and Age & Sex tables.
+- Approach: Stratified analysis using the Triage Level and Age & Sex tables.
 
-Method: Compared median length of stay (LOS) across acuity categories and demographics to highlight workload and resource needs.
+- Method: Compared median length of stay (LOS) across acuity categories and demographics to highlight workload and resource needs.
 
-Q3: Visit Disposition Insights by Age/Sex
+### Q3: Visit Disposition Insights by Age/Sex
 
-Approach: Analysis of the Visit Disposition table with demographic splits.
+- Approach: Analysis of the Visit Disposition table with demographic splits.
 
-Method: Examined how discharge, admission, transfer, or death varied across groups and their impact on LOS.
+- Method: Examined how discharge, admission, transfer, or death varied across groups and their impact on LOS.
 
-Q4: Predicting Length of Stay (LOS)
+### Q4: Predicting Length of Stay (LOS)
 
-Approach: Machine Learning + Survival Analysis.
+- Approach: Machine Learning + Survival Analysis.
 
-Models Used: Linear Regression (LR), Random Forest (RF), and CatBoost.
+    - Models Used: Linear Regression (LR), Random Forest (RF), and CatBoost.
 
-Model Interpretation: Applied SHAP values to interpret feature importance and direction of effects.
+    - Model Interpretation: Applied SHAP values to interpret feature importance and direction of effects.
 
-Survival Analysis: Fitted a Cox Proportional Hazards (CoxPH) model to study time-to-discharge while accounting for censoring.
+    - Survival Analysis: Fitted a Cox Proportional Hazards (CoxPH) model to study time-to-discharge while accounting for censoring.
+
+## 🔑 Key Findings
+
+**Q1: Age- and Sex-Stratified ED Utilization**
+
+- The 20–44 age group accounts for the highest ED visits:
+
+    - Males: ~1.3 million visits
+
+    - Females: ~0.9 million visits
+
+- In older adults (65+), females visit more frequently (~0.7 million) than males (~0.5 million).
+
+- Trauma is the most common presenting problem across all ages, especially in males aged 20–44 (~6.8 million) and females (~4.2 million).
+
+- Unintentional falls are most frequent among females aged 65+.
+
+- Acute myocardial infarction predominantly affects males 45+ and females 65+.
+
+- Pneumonia visits are concentrated in 0–19 and 65+ age groups for both sexes.
+
+- Motor vehicle collisions peak in males aged 20–44.
+
+**Q2: Triage Level and LOS Patterns by Age and Sex**
+
+- Median length of stay (LOS) increases with age and acuity:
+
+    - Females 65+: Emergent = 384 min, Resuscitation = 348 min
+
+    - Males 65+: Emergent = 384 min, Resuscitation = 285 min
+
+- Younger patients (0–44) have shorter LOS even for high-acuity cases.
+
+- Older adults consistently experience the longest stays, particularly for emergent presentations.
+
+**Q3: Visit Disposition Insights by Age/Sex**
+
+- Discharges home are most frequent in 20–44 age group for both sexes.
+
+- Admissions and transfers are most common among 65+, reflecting higher comorbidity and acuity.
+
+- Not seen / left without being seen occurs mainly in 20–44 age group.
+
+- Disposition patterns are strongly age-dependent: older adults require more intensive care, younger adults are more likely discharged.
+
+**Q4: Predicting Length of Stay (LOS)**
+
+### Modeling Performance:
+
+- Linear Regression: Test R² = 0.51, MAE ≈ 69 min
+
+- Random Forest: Test R² = 0.685, MAE ≈ 43 min (best performance)
+
+- CatBoost: Test R² = 0.679, MAE ≈ 47 min
+
+- **Interpretation**: Non-linear models (RF, CatBoost) better capture complex relationships between triage, disposition, acuity, and main problem.
+
+- SHAP Analysis (Random Forest):
+
+    - Most important predictors: visit disposition and triage level
+
+    - Patients discharged home or left without being seen have shorter LOS
+
+    - Transfers and high-acuity triage increase LOS
+
+    - Certain clinical problems (e.g., pneumonia, motor vehicle collisions) have modest effects
+
+- Survival Analysis (CoxPH):
+
+    - Sex is the only independent predictor of LOS (males slightly shorter, HR = 1.12, p < 0.005)
+
+    - Main problems have minimal independent effect (HR ≈ 1)
+
+    - Age and fiscal year trends exist but require stratification due to proportional hazards assumption violations
+
+- Integrated Insight:
+
+    - Survival analysis identifies statistically significant independent predictors (sex).
+
+    - SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
+
+    - Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
+
+    - SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
+
+Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
