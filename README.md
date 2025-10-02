@@ -1,17 +1,15 @@
-# Predicting and Interpreting ED Length of Stay: A Machine Learning Approach
+# # Predicting and Interpreting Emergency Department Length of Stay Using Machine Learning
 
 ## 📌 Project Overview
 
-This project analyzes emergency department (ED) utilization and length of stay (LOS) across Canada using national NACRS data from 2003–2022. It combines descriptive analyses, predictive modeling, and interpretability techniques to identify which patient and visit factors influence LOS. Machine learning models, including Random Forest and CatBoost, were used to predict LOS, with SHAP values applied to interpret feature contributions. In addition, a Cox proportional hazards (CoxPH) survival model was fitted to provide statistical inference on time-to-discharge, offering a complementary perspective to the machine learning findings.
+This project analyzes emergency department (ED) utilization and length of stay (LOS) across Canada using NACRS data (2003–2022). It provides actionable insights into which patient and visit factors influence LOS, helping hospitals optimize resource allocation and patient flow. Machine learning models, including Random Forest and CatBoost, were used to predict LOS, while SHAP values interpret feature contributions. Complementary survival analysis with a Cox proportional hazards model identifies statistically significant predictors of time-to-discharge.
 
 ## 🎯 Objectives
-- To examine trends in ED utilization across age, sex, and presenting problems.
 
-- To identify factors influencing ED length of stay.
-
-- To predict LOS using machine learning models and interpret feature importance using SHAP.
-
-- To complement predictive insights with statistical inference using survival analysis.
+- Examine trends in ED visits across age, sex, and main presenting problems.
+- Identify factors influencing ED length of stay.
+- Predict LOS using machine learning and interpret key drivers.
+- Complement predictive insights with statistical inference using survival analysis.
 
 ## 🛢️ Data
 
@@ -34,179 +32,92 @@ This project analyzes emergency department (ED) utilization and length of stay (
 
 ## 📊 Exploratory Data Analysis (EDA)
 
-Key findings from descriptive analysis:
+### 1. ED Visits by Age and Sex
+- Males dominate younger age groups (0–14 years), while females outnumber males after 75 years.  
+- **Why it matters:** Understanding demographic patterns helps hospitals anticipate demand across age and sex groups.
 
-### 1. ED Visits by Age and Sex:
+### 2. Overall ED Visit Trends
+- Visits increased gradually from ~9.8M (2003) to 22.9M (2017).  
+- Sharp rise in 2018–2019 due to inclusion of Quebec data.  
+- Visits dropped to ~23.2M in 2020 (COVID-19 impact) and partially rebounded to ~28M in 2021.  
+- **Why it matters:** Highlights temporal trends and the impact of reporting changes and external events on ED utilization.
 
-- Pyramid analysis shows males dominate younger age groups (0–14 years), while females outnumber males after 75 years.
+### 3. Acuity Analysis
+- Urgent cases had the highest volume (~90M), Resuscitation the lowest.  
+- Median LOS: Emergent and Urgent > 280 minutes; Non-Urgent ~120 minutes.  
+- **Why it matters:** High-acuity cases, though fewer, consume significantly more ED resources, guiding staffing and resource allocation.
 
-### 2. Overall ED Visit Trends:
+### 4. Visit Disposition Analysis
+- Admitted patients: longest median LOS (~380 min).  
+- Transferred patients: median LOS ~220 min.  
+- Deaths: shortest LOS (~125 min).  
+- Most visits result in discharge home (~380M visits).  
+- **Why it matters:** Disposition patterns strongly influence resource use; planning should consider both volume and LOS by disposition type.
 
-- From 2003 to 2017, visits gradually increased from ~9.8M to 22.9M.
+### 5. Frequency of ED Problems
+- Trauma: most visits (~70M) but short LOS (~130 min).  
+- Unintentional falls: ~20M visits, LOS ~140 min.  
+- Acute Myocardial Infarction: lower volume but long LOS (~280 min).  
+- **Why it matters:** High-frequency conditions are less resource-intensive per visit; severe but less frequent problems require more ED resources per patient.
 
-- In 2018–2019, there was a substantial rise due to Quebec inclusion.
-
-- Visits dropped to ~23.2M in 2020 (COVID-19 impact) and partially rebounded to ~28M in 2021.
-
-### 3. Acuity Analysis:
-
-- Urgent cases had the highest volume (~90M), Resuscitation the lowest.
-
-- Median LOS: Emergent and Urgent > 280 minutes; Non-Urgent ~120 minutes.
-
-- High-acuity cases demand more ED resources despite being less frequent.
-
-### 4. Visit Disposition Analysis:
-
-- Admitted patients: longest median LOS (~380 min)
-
-- Transferred patients: median LOS ~220 min
-
-- Deaths: shortest LOS (~125 min)
-
-- Most visits result in discharge home (~380M visits).
-
-- High-acuity dispositions correlate with longer LOS; low-acuity dispositions dominate volume.
-
-### 5. Frequency of ED Problems:
-
-- Trauma: most visits (~70M) but short LOS (~130 min)
-
-- Unintentional falls: ~20M visits, LOS ~140 min
-
-- Acute Myocardial Infarction: low visit volume but long LOS (~280 min)
-
-- High-frequency conditions are less resource-intensive; severe conditions require more ED resources per patient.
-
-### 6. Triage Level × Visit Disposition and LOS:
-
-- Urgent and Emergent admissions: longest median LOS (528 and 496.5 min, respectively)
-
-- Less Urgent admissions: ~396 min
-
-- Non-Urgent and Resuscitation admissions: ~300 min
-
-- Other dispositions: Urgent deaths ~289.5 min; Urgent transfers ~257 min
-
-- Both triage acuity and disposition strongly influence LOS.
+### 6. Triage Level × Visit Disposition and LOS
+- Urgent and Emergent admissions: longest median LOS (528 and 496.5 min).  
+- Less Urgent admissions: ~396 min; Non-Urgent and Resuscitation admissions: ~300 min.  
+- Other dispositions: Urgent deaths ~289.5 min; Urgent transfers ~257 min.  
+- **Why it matters:** Both triage acuity and disposition strongly drive LOS, emphasizing the need to manage high-acuity admissions efficiently.
 
 ## 🧩 Methodology
-
-The analysis was guided by four research questions:
-
-### Q1: Age- and Sex-Stratified ED Utilization
-
-- Approach: Exploratory Data Analysis (EDA) of the Age & Sex and Main Problem tables.
-
-- Method: Population pyramids and cross-tabulations to identify utilization patterns across demographic groups.
-
-### Q2: Triage Level and LOS Patterns by Age and Sex
-
-- Approach: Stratified analysis using the Triage Level and Age & Sex tables.
-
-- Method: Compared median length of stay (LOS) across acuity categories and demographics to highlight workload and resource needs.
-
-### Q3: Visit Disposition Insights by Age/Sex
-
-- Approach: Analysis of the Visit Disposition table with demographic splits.
-
-- Method: Examined how discharge, admission, transfer, or death varied across groups and their impact on LOS.
-
-### Q4: Predicting Length of Stay (LOS)
-
-- Approach: Machine Learning + Survival Analysis.
-
-    - Models Used: Linear Regression (LR), Random Forest (RF), and CatBoost.
-
-    - Model Interpretation: Applied SHAP values to interpret feature importance and direction of effects.
-
-    - Survival Analysis: Fitted a Cox Proportional Hazards (CoxPH) model to study time-to-discharge while accounting for censoring.
+- **EDA:** Age, sex, triage, disposition, and main problem trends analyzed with descriptive statistics and visualizations to understand ED utilization patterns.
+- **Machine Learning:** Linear Regression, Random Forest, and CatBoost used to predict LOS; SHAP applied for interpretability to identify key operational drivers.
+- **Survival Analysis:** Cox Proportional Hazards model fitted to identify independent predictors of LOS and provide statistical inference on time-to-discharge.
 
 ## 🔑 Key Findings
 
 **Q1: Age- and Sex-Stratified ED Utilization**
-
-- The 20–44 age group accounts for the highest ED visits:
-
-    - Males: ~1.3 million visits
-
-    - Females: ~0.9 million visits
-
-- In older adults (65+), females visit more frequently (~0.7 million) than males (~0.5 million).
-
-- Trauma is the most common presenting problem across all ages, especially in males aged 20–44 (~6.8 million) and females (~4.2 million).
-
-- Unintentional falls are most frequent among females aged 65+.
-
-- Acute myocardial infarction predominantly affects males 45+ and females 65+.
-
-- Pneumonia visits are concentrated in 0–19 and 65+ age groups for both sexes.
-
-- Motor vehicle collisions peak in males aged 20–44.
+- The 20–44 age group had the highest ED visits: Males ~1.3M, Females ~0.9M.
+- In adults 65+, females visited more (~0.7M) than males (~0.5M).
+- Trauma was the most common problem, especially in males 20–44 (~6.8M) and females (~4.2M).
+- Unintentional falls were most frequent in females 65+.
+- Acute myocardial infarction affected primarily males 45+ and females 65+.
+- Pneumonia visits were concentrated in 0–19 and 65+ age groups.
+- Motor vehicle collisions peaked in males 20–44.
 
 **Q2: Triage Level and LOS Patterns by Age and Sex**
-
-- Median length of stay (LOS) increases with age and acuity:
-
+- Median LOS increases with age and acuity:
     - Females 65+: Emergent = 384 min, Resuscitation = 348 min
-
     - Males 65+: Emergent = 384 min, Resuscitation = 285 min
-
-- Younger patients (0–44) have shorter LOS even for high-acuity cases.
-
-- Older adults consistently experience the longest stays, particularly for emergent presentations.
+- Younger patients (0–44) had shorter LOS even in high-acuity cases.
+- Older adults consistently experienced the longest stays, particularly for emergent presentations.
 
 **Q3: Visit Disposition Insights by Age/Sex**
-
-- Discharges home are most frequent in 20–44 age group for both sexes.
-
-- Admissions and transfers are most common among 65+, reflecting higher comorbidity and acuity.
-
-- Not seen / left without being seen occurs mainly in 20–44 age group.
-
-- Disposition patterns are strongly age-dependent: older adults require more intensive care, younger adults are more likely discharged.
+- Discharges home were most frequent in the 20–44 age group for both sexes.
+- Admissions and transfers were most common among 65+, reflecting higher acuity.
+- Not seen / left without being seen occurred mainly in 20–44 age group.
+- Disposition patterns are strongly age-dependent: older adults required more intensive care, younger adults more likely discharged.
 
 **Q4: Predicting Length of Stay (LOS)**
 
-### Modeling Performance:
-
+**Modeling Performance:**
 - Linear Regression: Test R² = 0.51, MAE ≈ 69 min
-
-- Random Forest: Test R² = 0.685, MAE ≈ 43 min (best performance)
-
+- Random Forest: Test R² = 0.685, MAE ≈ 43 min (best)
 - CatBoost: Test R² = 0.679, MAE ≈ 47 min
+- **Interpretation:** Non-linear models (RF, CatBoost) captured complex relationships better than linear regression.
 
-- **Interpretation**: Non-linear models (RF, CatBoost) better capture complex relationships between triage, disposition, acuity, and main problem.
+**SHAP Analysis (Random Forest):**
+- Key predictors: visit disposition and triage level.
+- Discharged home / left without being seen → shorter LOS.
+- Transfers / high-acuity triage → longer LOS.
+- Certain conditions (pneumonia, motor vehicle collisions) had modest effects.
 
-### SHAP Analysis (Random Forest):
+**Survival Analysis (CoxPH):**
+- Sex was the only independent predictor (males slightly shorter LOS, HR = 1.12, p < 0.005).
+- Main problems had minimal independent effect (HR ≈ 1).
+- Age and fiscal year trends exist but required stratification due to proportional hazards assumption violations.
 
-- Most important predictors: visit disposition and triage level
-
-- Patients discharged home or left without being seen have shorter LOS
-
-- Transfers and high-acuity triage increase LOS
-
-- Certain clinical problems (e.g., pneumonia, motor vehicle collisions) have modest effects
-
-### Survival Analysis (CoxPH):
-
-- Sex is the only independent predictor of LOS (males slightly shorter, HR = 1.12, p < 0.005)
-
-- Main problems have minimal independent effect (HR ≈ 1)
-
-- Age and fiscal year trends exist but require stratification due to proportional hazards assumption violations
-
-### Integrated Insight:
-
+**Integrated Insight:**
 - Survival analysis identifies statistically significant independent predictors (sex).
-
-- SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
-
-- Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
-
- - SHAP interpretation identifies operational drivers (disposition, triage) that explain most variation in LOS.
-
-Together, these methods provide a comprehensive understanding: operational and demographic factors both shape ED length of stay, while clinical presentation alone is less predictive once disposition and acuity are considered.
+- SHAP identifies operational drivers (disposition, triage) that explain most variation in LOS.
+- Combined, these methods provide a comprehensive understanding: both demographic and operational factors shape ED LOS, while clinical presentation alone is less predictive once disposition and acuity are considered.
 
 🛠️ Tools & Technologies
 
