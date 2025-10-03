@@ -137,6 +137,5 @@ This project analyzes emergency department (ED) utilization and length of stay (
 
 - Version Control & Repository: Git & GitHub
 
-## 📁 Repository Organization
 ## 📚 Reference
 Canadian Institute for Health Information. NACRS emergency department visits and lengths of stay. Accessed October 2, 2025. Link
