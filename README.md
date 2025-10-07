@@ -1,4 +1,4 @@
-# # Predicting and Interpreting Emergency Department Length of Stay Using Machine Learning
+# Predicting and Interpreting Emergency Department Length of Stay Using Machine Learning
 
 ## 📌 Project Overview
 
